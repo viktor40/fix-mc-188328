@@ -29,19 +29,8 @@ This part is only called when the entity it is trying to push away is not a boat
 Or in other words, we're comparing if the bottom of the entity hitbox is lower or on the same height as the bottom of the boat hitbox.
 This results in the bug that when the entity's bottom of the hitbox is higher than the boats hitbox, the boat won't push the entity even though they're clearly touching and it should push.
 
-This can be easily fixed by instead of checking if the bottom of the boat hitbox is lower, we check if the top hitbox is lower. We do this by mixing into the method and adding that extra clause if all previous clauses fail, so we're not calling the `super.pushAwayFrom(entity)` method twice.
-
-In other words, this code gets added to the method:
-```Java
-if (!(entity instanceof BoatEntity)) {
-            if (!(entity.getBoundingBox().minY <= this.getBoundingBox().minY)) {
-                if (entity.getBoundingBox().minY <= this.thisBoatEntity.getBoundingBox().maxY) {
-                    super.pushAwayFrom(entity);
-                }
-            }
-        }
-```
-
+This can be easily fixed by instead of checking if the bottom of the boat hitbox is lower, we check if the top hitbox is lower.
+We do this by using redirect to change `this.getBoundingBox().minY` to `this.getBoundingBox().maxY`
 Making it so the method becomes functionally the same as:
 ```Java
 @Override
