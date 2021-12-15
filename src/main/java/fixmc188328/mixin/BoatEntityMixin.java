@@ -11,8 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BoatEntity.class)
 public abstract class BoatEntityMixin extends Entity {
-    public BoatEntity thisBoatEntity = (BoatEntity)(Object)this;
-
     public BoatEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
@@ -21,7 +19,7 @@ public abstract class BoatEntityMixin extends Entity {
     public void fixBoatBug(Entity entity, CallbackInfo ci) {
         if (!(entity instanceof BoatEntity)) {
             if (!(entity.getBoundingBox().minY <= this.getBoundingBox().minY)) {
-                if (entity.getBoundingBox().minY <= this.thisBoatEntity.getBoundingBox().maxY) {
+                if (entity.getBoundingBox().minY <= this.getBoundingBox().maxY) {
                     super.pushAwayFrom(entity);
                 }
             }
