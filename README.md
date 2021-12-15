@@ -35,7 +35,7 @@ In other words, this code gets added to the method:
 ```Java
 if (!(entity instanceof BoatEntity)) {
             if (!(entity.getBoundingBox().minY <= this.getBoundingBox().minY)) {
-                if (entity.getBoundingBox().minY <= this.getBoundingBox().maxY) {
+                if (entity.getBoundingBox().minY <= this.thisBoatEntity.getBoundingBox().maxY) {
                     super.pushAwayFrom(entity);
                 }
             }
