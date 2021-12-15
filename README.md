@@ -34,12 +34,12 @@ This can be easily fixed by instead of checking if the bottom of the boat hitbox
 In other words, this code gets added to the method:
 ```Java
 if (!(entity instanceof BoatEntity)) {
-            if (!(entity.getBoundingBox().minY <= this.getBoundingBox().minY)) {
-                if (entity.getBoundingBox().minY <= this.thisBoatEntity.getBoundingBox().maxY) {
-                    super.pushAwayFrom(entity);
-                }
-            }
+    if (!(entity.getBoundingBox().minY <= this.getBoundingBox().minY)) {
+        if (entity.getBoundingBox().minY <= this.thisBoatEntity.getBoundingBox().maxY) {
+            super.pushAwayFrom(entity);
         }
+    }
+}
 ```
 
 Making it so the method becomes functionally the same as:
