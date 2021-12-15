@@ -3,7 +3,7 @@
 This is a simple mod fixing the bug [MC-188328](https://bugs.mojang.com/browse/MC-188328).
 This bug relates to boat pushing mechanics. This mod was primarily made as a POC on how to fix this bug, and as a way to confirm that my proposed fix to this bug would actually work.
 
-## The bug and it's fix
+## The bug
 In this section we use fabric mappings!
 
 The bug stems from a supposed typo in the `net.minecraft.entity.vehicle.boatEntity` class. When the hitboxes of a boat and an entity collide the `pushAwayFrom` method is called:
@@ -29,7 +29,9 @@ This part is only called when the entity it is trying to push away is not a boat
 Or in other words, we're comparing if the bottom of the entity hitbox is lower or on the same height as the bottom of the boat hitbox.
 This results in the bug that when the entity's bottom of the hitbox is higher than the boats hitbox, the boat won't push the entity even though they're clearly touching and it should push.
 
-This can be easily fixed by instead of checking if the bottom of the boat hitbox is lower, we check if the top hitbox is lower.
+
+## The fix
+This bug can be easily fixed by instead of checking if the bottom of the boat hitbox is lower, we check if the top hitbox is lower.
 We do this by using redirect to change `this.getBoundingBox().minY` to `this.getBoundingBox().maxY`
 Making it so the method becomes functionally the same as:
 ```Java
